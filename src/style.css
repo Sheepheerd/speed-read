@@ -10,7 +10,6 @@
   --muted: #ab9f85;
   --faint: #7f755f;
   --amber: #ffb527;
-  --serif: "Iowan Old Style", "Palatino", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
 }
 
@@ -21,7 +20,7 @@ html, body { height: 100%; }
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--serif);
+  font-family: var(--mono);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
