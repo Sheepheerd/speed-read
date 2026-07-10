@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Lectern — one word at a time</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#128214;</text></svg>" />
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <!-- ============ LIBRARY / LOAD SCREEN ============ -->
+  <main id="screen-library" class="screen">
+    <header class="masthead">
+      <h1 class="wordmark">Lect<span class="pivot">e</span>rn</h1>
+      <p class="tagline">One word at a time, exactly where your eye already is.</p>
+    </header>
+
+    <div id="dropzone" class="dropzone" tabindex="0" role="button"
+         aria-label="Open a book file. PDF, EPUB, or plain text.">
+      <div class="dropzone-inner">
+        <span class="dropzone-verb">Drop a book here</span>
+        <span class="dropzone-formats">pdf &middot; epub &middot; txt &middot; md</span>
+        <span class="dropzone-or">or click to browse</span>
+      </div>
+      <input type="file" id="file-input" accept=".pdf,.epub,.txt,.md,.text,application/pdf,application/epub+zip,text/plain" hidden />
+    </div>
+
+    <details class="paste-fold">
+      <summary>Paste text instead</summary>
+      <textarea id="paste-area" rows="6" spellcheck="false"
+        placeholder="Paste an article, a chapter, anything."></textarea>
+      <button id="paste-go" class="btn btn-solid">Read this</button>
+    </details>
+
+    <section id="shelf" class="shelf" hidden>
+      <h2 class="shelf-label">On your shelf</h2>
+      <ul id="shelf-list"></ul>
+    </section>
+
+    <p id="load-status" class="load-status" role="status"></p>
+  </main>
+
+  <!-- ============ READER SCREEN ============ -->
+  <main id="screen-reader" class="screen" hidden>
+    <div class="progress" id="progress" role="slider" aria-label="Position in book"
+         aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <header class="reader-top">
+      <button id="btn-back" class="btn btn-ghost" title="Back to library (Esc)">&larr; Shelf</button>
+      <button id="btn-chapters" class="btn btn-ghost" title="Chapters (T)" hidden>&#9776; Chapters</button>
+      <span id="book-title" class="book-title"></span>
+      <button id="btn-para" class="btn btn-ghost btn-para" title="Show current paragraph (C)">&para;</button>
+      <span id="clock" class="clock" title="Time left at current speed"></span>
+    </header>
+
+    <section class="stage" id="stage" aria-live="off">
+      <div class="rail rail-top"><span class="tick"></span></div>
+      <div class="word-row" id="word-row">
+        <span class="word-pre" id="word-pre"></span><span class="word-orp" id="word-orp"></span><span class="word-post" id="word-post"></span>
+      </div>
+      <div class="rail rail-bottom"><span class="tick"></span></div>
+      <p class="stage-hint" id="stage-hint">space to start &middot; &uarr;&darr; speed &middot; &larr;&rarr; sentence &middot; C paragraph &middot; T chapters</p>
+    </section>
+
+    <footer class="reader-controls">
+      <div class="ctl-group">
+        <button id="btn-prev" class="btn btn-ghost" title="Previous sentence (←)">&#8676;</button>
+        <button id="btn-play" class="btn btn-solid btn-play" title="Play / pause (space)">Start</button>
+        <button id="btn-next" class="btn btn-ghost" title="Next sentence (→)">&#8677;</button>
+      </div>
+      <div class="ctl-group wpm-group">
+        <button id="wpm-down" class="btn btn-ghost" title="Slower (↓)">&minus;</button>
+        <div class="wpm-readout">
+          <span id="wpm-value">300</span>
+          <span class="wpm-unit">wpm</span>
+        </div>
+        <button id="wpm-up" class="btn btn-ghost" title="Faster (↑)">+</button>
+      </div>
+      <div class="ctl-group pause-group">
+        <label class="pause-label" for="pause-range" title="How long a sentence-ending word holds, in multiples of a normal word">pause at .</label>
+        <input type="range" id="pause-range" min="1" max="5" step="0.25" value="2.7" />
+        <span id="pause-value" class="pause-value">&times;2.7</span>
+      </div>
+    </footer>
+
+    <div id="overlay" class="overlay" hidden>
+      <div class="panel" role="dialog" aria-modal="true" aria-labelledby="panel-title">
+        <header class="panel-head">
+          <h2 id="panel-title"></h2>
+          <button id="panel-close" class="btn btn-ghost" title="Close (Esc)">&times;</button>
+        </header>
+        <div id="panel-body" class="panel-body"></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
